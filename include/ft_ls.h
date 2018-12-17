@@ -24,6 +24,7 @@ typedef struct		t_command
 
 typedef struct		t_file
 {
+	char					name[256];
 	struct 			dirent	*info;
 	struct			stat	*stat;
 	struct			t_file	*left;

@@ -3,17 +3,22 @@
 char *append_path(char *s1, char *s2)
 {
 	char *s;
-	int i;
 
-	i = 0;
-	s = (char*)malloc(sizeof(char) * (ft_strlen(s1)) + ft_strlen(s2) + 2);
-	ft_memset(s,'\0', sizeof(s));
-	ft_strcpy(s, s1);
-	while (s[i])
-		i++;
-	s[i] = '/';
-	i++;
-	ft_strcpy(&s[i], s2);
+	if (s1[ft_strlen(s1) - 1] != '/')
+	{
+		s = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 2));
+		ft_memset(s,'\0', ft_strlen(s1) + ft_strlen(s2) + 2);
+		ft_strcpy(s, s1);
+		s[ft_strlen(s1)] = '/';
+		ft_strcpy(&s[ft_strlen(s1) + 1], s2);
+	}
+	else
+	{
+		s = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+		ft_memset(s,'\0', ft_strlen(s1) + ft_strlen(s2) + 1);
+		ft_strcpy(s, s1);
+		ft_strcpy(&s[ft_strlen(s1)], s2);
+	}
 	return (s);
 }
 
@@ -45,10 +50,7 @@ void	handle_recursive(s_path_link **list, int options)
 	tmp = NULL;
 	while ((*list) != NULL)
 	{
-
-		printf("\n\n%s:\n", (*list)->path);
 		handle_command((*list)->path, options);
-		
 		tmp = *list;
 		*list = (*list)->next;
 		ft_strdel(&tmp->path);

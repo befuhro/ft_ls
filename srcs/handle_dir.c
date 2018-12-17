@@ -29,6 +29,7 @@ s_file	*generate_file(s_file file)
 	link_file->right = NULL;
 	link_file->info = file.info;
 	link_file->stat = file.stat;
+	ft_strcpy(link_file->name, file.info->d_name);
 	return (link_file);
 }
 
@@ -72,6 +73,9 @@ void	list_dir(int options, DIR *directorie, char *path)
 
 	list = NULL;
 	files = run_through_dir(options, directorie, path, &list);
+	ft_putchar('\n');
+	ft_putstr(path);
+	ft_putstr(":\n");
 	print(files);
 	dealloc_tree(files);
 	closedir(directorie);
