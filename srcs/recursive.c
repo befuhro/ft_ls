@@ -37,3 +37,21 @@ void    append_recursive_list(char *path, s_path_link **list)
 		}
 	}
 }
+
+void	handle_recursive(s_path_link **list, int options)
+{
+	s_path_link *tmp;
+
+	tmp = NULL;
+	while ((*list) != NULL)
+	{
+
+		printf("\n\n%s:\n", (*list)->path);
+		handle_command((*list)->path, options);
+		
+		tmp = *list;
+		*list = (*list)->next;
+		ft_strdel(&tmp->path);
+		free(tmp);
+	}
+}

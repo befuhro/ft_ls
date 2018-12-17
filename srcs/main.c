@@ -14,20 +14,15 @@ int	 create_options_byte(char *options)
 }
 
 
-void	list_dir(char *path, int options)
+void	handle_command(char *path, int options)
 {
-	DIR *repository;
+	DIR *directorie;
 
-
-
-	if ((repository = opendir(path)) == NULL)
-	{
-		perror("Cannot open .");
-	}
+	if ((directorie = opendir(path)) == NULL)
+		perror("Permission denied.");
 	else
 	{
-		sort(options, repository, path);
-		closedir(repository);
+		list_dir(options, directorie, path);
 	}
 }
 
@@ -40,6 +35,6 @@ int		main(int ac, char **av)
 	else
 		options = 0;
 	if (ac >= 2)
-		list_dir(av[2], options);
+		handle_command(av[2], options);
 	return (0);
 }
