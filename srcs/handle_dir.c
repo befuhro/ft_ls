@@ -1,3 +1,16 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   handle_dir.c                                     .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2018/12/17 19:48:14 by befuhro      #+#   ##    ##    #+#       */
+/*   Updated: 2018/12/17 21:05:42 by befuhro     ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
 void	insert_file(int options, s_file **files, s_file *file)
@@ -41,43 +54,31 @@ void	place_file(int options, s_file file, s_file **files)
 	insert_file(options, files, link_file);
 }
 
+
+
 s_file	*run_through_dir(int options, DIR *directorie, char *path, s_path **list)
 {
 	s_file	*files;
 	s_file	file;	
-	char	*tmp_path;
+	char	*entire_path;
 
 	files = NULL;
-	tmp_path = NULL;
+	entire_path = NULL;
 	while ((file.info = readdir(directorie)))
 	{
-		tmp_path = append_path(path, file.info->d_name);
+		entire_path = append_path(path, file.info->d_name);
 		file.stat = (struct stat*)malloc(sizeof(struct stat));
-		lstat(tmp_path, file.stat);
-		if (file.info->d_name[0] != '.')
+		lstat(entire_path, file.stat);
+		if (file.info->d_name[0] != '.' || 
+			(A_CHECK(options) && ft_strcmp(file.info->d_name, ".") &&
+			 ft_strcmp(file.info->d_name, "..")))
 		{
 			place_file(options, file, &files);
 			if (S_ISDIR(file.stat->st_mode) && R_CHECK(options))
-				append_recursive_tree(tmp_path, list, options);
+				append_recursive_tree(entire_path, list, options);
 		}
-		ft_strdel(&tmp_path);
+		ft_strdel(&entire_path);
 		free(file.stat);
 	}
 	return (files);
-}
-
-void	list_dir(int options, DIR *directorie, char *path)
-{
-	s_file	*files;
-	s_path *list;
-
-	list = NULL;
-	files = run_through_dir(options, directorie, path, &list);
-	ft_putchar('\n');
-	ft_putstr(path);
-	ft_putstr(":\n");
-	print(files);
-	dealloc_tree(files);
-	closedir(directorie);
-	handle_recursive(list, options);
 }

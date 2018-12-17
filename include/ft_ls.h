@@ -47,5 +47,6 @@ void    print(s_file *files);
 void    dealloc_tree(s_file *files);
 void    dealloc_recursive_list(s_path *list);
 void 	handle_recursive(s_path *list, int options);
+s_file  *run_through_dir(int options, DIR *directorie, char *path, s_path **list);
 
 #endif

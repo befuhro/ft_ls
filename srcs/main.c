@@ -1,3 +1,16 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   main.c                                           .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2018/12/17 19:48:11 by befuhro      #+#   ##    ##    #+#       */
+/*   Updated: 2018/12/17 21:05:52 by befuhro     ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 #include <errno.h>
 
@@ -11,6 +24,23 @@ int	 create_options_byte(char *options)
 	byte = (ft_strchr(options, 's')) ? byte + S_BITE : byte;
 	byte = (ft_strchr(options, 'a')) ? byte + A_BITE : byte;
 	return (byte);
+}
+
+
+void	list_dir(int options, DIR *directorie, char *path)
+{
+	s_file	*files;
+	s_path *list;
+
+	list = NULL;
+	files = run_through_dir(options, directorie, path, &list);
+	ft_putchar('\n');
+	ft_putstr(path);
+	ft_putstr(":\n");
+	print(files);
+	dealloc_tree(files);
+	closedir(directorie);
+	handle_recursive(list, options);
 }
 
 
@@ -38,3 +68,5 @@ int		main(int ac, char **av)
 		handle_command(av[2], options);
 	return (0);
 }
+
+
