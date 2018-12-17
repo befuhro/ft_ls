@@ -41,7 +41,7 @@ void	place_file(int options, s_file file, s_file **files)
 	insert_file(options, files, link_file);
 }
 
-s_file	*run_through_dir(int options, DIR *directorie, char *path, s_path_link **list)
+s_file	*run_through_dir(int options, DIR *directorie, char *path, s_path **list)
 {
 	s_file	*files;
 	s_file	file;	
@@ -58,7 +58,7 @@ s_file	*run_through_dir(int options, DIR *directorie, char *path, s_path_link **
 		{
 			place_file(options, file, &files);
 			if (S_ISDIR(file.stat->st_mode) && R_CHECK(options))
-				append_recursive_list(tmp_path, list);
+				append_recursive_tree(tmp_path, list, options);
 		}
 		ft_strdel(&tmp_path);
 		free(file.stat);
@@ -69,7 +69,7 @@ s_file	*run_through_dir(int options, DIR *directorie, char *path, s_path_link **
 void	list_dir(int options, DIR *directorie, char *path)
 {
 	s_file	*files;
-	s_path_link *list;
+	s_path *list;
 
 	list = NULL;
 	files = run_through_dir(options, directorie, path, &list);
@@ -79,5 +79,5 @@ void	list_dir(int options, DIR *directorie, char *path)
 	print(files);
 	dealloc_tree(files);
 	closedir(directorie);
-	handle_recursive(&list, options);
+	handle_recursive(list, options);
 }

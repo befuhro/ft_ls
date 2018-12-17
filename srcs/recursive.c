@@ -22,38 +22,52 @@ char *append_path(char *s1, char *s2)
 	return (s);
 }
 
-void    append_recursive_list(char *path, s_path_link **list)
+void	insert_recursive_node(s_path *node, s_path **list, int options)
 {
-	s_path_link *elt;
-	s_path_link *tmp;
+	if (*list == NULL)
+		*list = node;
+	else
+	{
+		if (ft_strcmp((*list)->path, node->path) > 0)
+		{
+		//	printf("%s < %s\n", node->path, (*list)->path);
+			insert_recursive_node(node, &(*list)->left, options);
+		}
+		else
+		{
+		//	printf("%s > %s\n", node->path, (*list)->path);
+			insert_recursive_node(node, &(*list)->right, options);
+		}
+	}
+	(void)options;
+}
+
+void    append_recursive_tree(char *path, s_path **list, int options)
+{
+	s_path	*node;
 
 	if (ft_strcmp(path, ".") && ft_strcmp(path, ".."))
-	{
-		elt = (s_path_link*)malloc(sizeof(s_path_link) * 1);
-		elt->path = ft_strdup(path);
-		elt->next = NULL;
-		if (*list == NULL)
-			*list = elt;
-		else {
-			tmp = *list;
-			while (tmp->next != NULL)
-				tmp = tmp->next;
-			tmp->next = elt;
-		}
+	{	
+		node = malloc(sizeof(s_path));
+		node->path = ft_strdup(path); 
+		node->left = NULL;
+		node->right = NULL;
+		insert_recursive_node(node, list, options);
 	}
 }
 
-void	handle_recursive(s_path_link **list, int options)
+void	handle_recursive(s_path *list, int options)
 {
-	s_path_link *tmp;
-
-	tmp = NULL;
-	while ((*list) != NULL)
+	if (list != NULL)
 	{
-		handle_command((*list)->path, options);
-		tmp = *list;
-		*list = (*list)->next;
-		ft_strdel(&tmp->path);
-		free(tmp);
-	}
+		handle_recursive(list->left, options);
+		//ft_putendl(list->path);
+		
+		handle_command(list->path, options);
+		
+		handle_recursive(list->right, options);
+		ft_strdel(&list->path);
+		free(list);
+	}	
+	(void)options;
 }
