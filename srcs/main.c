@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/17 19:48:11 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/17 21:05:52 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/17 22:57:20 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,7 +21,7 @@ int	 create_options_byte(char *options)
 	byte = 0;
 	byte = (ft_strchr(options, 't')) ? byte + T_BITE : byte;
 	byte = (ft_strchr(options, 'R')) ? byte + R_BITE : byte;
-	byte = (ft_strchr(options, 's')) ? byte + S_BITE : byte;
+	byte = (ft_strchr(options, 'r')) ? byte + r_BITE : byte;
 	byte = (ft_strchr(options, 'a')) ? byte + A_BITE : byte;
 	return (byte);
 }
@@ -37,7 +37,7 @@ void	list_dir(int options, DIR *directorie, char *path)
 	ft_putchar('\n');
 	ft_putstr(path);
 	ft_putstr(":\n");
-	print(files);
+	print(files, options);
 	dealloc_tree(files);
 	closedir(directorie);
 	handle_recursive(list, options);

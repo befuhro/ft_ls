@@ -30,12 +30,12 @@ void	insert_recursive_node(s_path *node, s_path **list, int options)
 	{
 		if (ft_strcmp((*list)->path, node->path) > 0)
 		{
-		//	printf("%s < %s\n", node->path, (*list)->path);
+			//	printf("%s < %s\n", node->path, (*list)->path);
 			insert_recursive_node(node, &(*list)->left, options);
 		}
 		else
 		{
-		//	printf("%s > %s\n", node->path, (*list)->path);
+			//	printf("%s > %s\n", node->path, (*list)->path);
 			insert_recursive_node(node, &(*list)->right, options);
 		}
 	}
@@ -60,14 +60,19 @@ void	handle_recursive(s_path *list, int options)
 {
 	if (list != NULL)
 	{
-		handle_recursive(list->left, options);
-		//ft_putendl(list->path);
-		
-		handle_command(list->path, options);
-		
-		handle_recursive(list->right, options);
+		if (r_CHECK(options))
+		{
+			handle_recursive(list->right, options);
+			handle_command(list->path, options);
+			handle_recursive(list->left, options);
+		}
+		else
+		{
+			handle_recursive(list->left, options);
+			handle_command(list->path, options);
+			handle_recursive(list->right, options);
+		}
 		ft_strdel(&list->path);
 		free(list);
 	}	
-	(void)options;
 }
