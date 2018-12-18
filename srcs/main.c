@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/17 19:48:11 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/17 22:57:20 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/18 00:32:33 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -49,17 +49,14 @@ void	handle_command(char *path, int options)
 	DIR *directorie;
 
 	if ((directorie = opendir(path)) == NULL)
-		perror("Permission denied.");
+		perror(path);
 	else
-	{
 		list_dir(options, directorie, path);
-	}
 }
 
 int		main(int ac, char **av)
 {
 	int options;
-	(void)ac;
 	if (av[1] != NULL)
 		options = create_options_byte(av[1]);
 	else
@@ -68,5 +65,3 @@ int		main(int ac, char **av)
 		handle_command(av[2], options);
 	return (0);
 }
-
-

@@ -25,6 +25,7 @@ typedef struct		t_command
 typedef struct		t_file
 {
 	char			name[256];
+	time_t				mtime;
 	struct dirent	*info;
 	struct stat		*stat;
 	struct t_file	*left;
@@ -34,6 +35,7 @@ typedef struct		t_file
 typedef	struct		t_path
 {
 	char			*path;
+	time_t			mtime;
 	struct t_path	*left;
 	struct t_path	*right;
 

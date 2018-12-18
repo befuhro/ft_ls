@@ -28,30 +28,43 @@ void	insert_recursive_node(s_path *node, s_path **list, int options)
 		*list = node;
 	else
 	{
-		if (ft_strcmp((*list)->path, node->path) > 0)
+		if (T_CHECK(options))
 		{
-			//	printf("%s < %s\n", node->path, (*list)->path);
-			insert_recursive_node(node, &(*list)->left, options);
+			 if ((*list)->mtime > node->mtime ||
+				 ((*list)->mtime == node->mtime &&
+			      ft_strcmp((*list)->path, node->path) < 0))
+		       insert_recursive_node(node, &(*list)->right, options);
+			else
+	   			insert_recursive_node(node, &(*list)->left, options);
 		}
 		else
 		{
-			//	printf("%s > %s\n", node->path, (*list)->path);
-			insert_recursive_node(node, &(*list)->right, options);
+			if (ft_strcmp((*list)->path, node->path) < 0)
+				insert_recursive_node(node, &(*list)->right, options);
+			else
+				insert_recursive_node(node, &(*list)->left, options);
 		}
 	}
-	(void)options;
 }
 
 void    append_recursive_tree(char *path, s_path **list, int options)
 {
 	s_path	*node;
 
+	struct stat *stat;
 	if (ft_strcmp(path, ".") && ft_strcmp(path, ".."))
 	{	
 		node = malloc(sizeof(s_path));
 		node->path = ft_strdup(path); 
 		node->left = NULL;
 		node->right = NULL;
+		if (T_CHECK(options))
+		{
+			stat = malloc(sizeof(struct stat));
+			lstat(path, stat);
+			node->mtime = stat->st_mtime;
+			free(stat);
+		}
 		insert_recursive_node(node, list, options);
 	}
 }
