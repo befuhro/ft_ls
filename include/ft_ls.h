@@ -26,6 +26,7 @@ typedef struct		t_file
 {
 	char			name[256];
 	time_t				mtime;
+	mode_t				mode;
 	struct dirent	*info;
 	struct stat		*stat;
 	struct t_file	*left;

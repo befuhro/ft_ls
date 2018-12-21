@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/17 19:48:14 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/18 00:52:14 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/21 15:34:37 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -48,6 +48,7 @@ s_file	*generate_file(s_file file)
 	link_file->info = file.info;
 	link_file->stat = file.stat;
 	link_file->mtime = file.stat->st_mtime;
+	link_file->mode = file.stat->st_mode;
 	ft_strcpy(link_file->name, file.info->d_name);
 	return (link_file);
 }
