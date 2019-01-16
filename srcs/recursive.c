@@ -28,7 +28,7 @@ void	insert_recursive_node(s_path *node, s_path **list, int options)
 		*list = node;
 	else
 	{
-		if (T_CHECK(options))
+		if (options & B_TIME)
 		{
 			 if ((*list)->mtime > node->mtime ||
 				 ((*list)->mtime == node->mtime &&
@@ -58,7 +58,7 @@ void    append_recursive_tree(char *path, s_path **list, int options)
 		node->path = ft_strdup(path); 
 		node->left = NULL;
 		node->right = NULL;
-		if (T_CHECK(options))
+		if (options & B_TIME)
 		{
 			stat = malloc(sizeof(struct stat));
 			lstat(path, stat);
@@ -73,7 +73,7 @@ void	handle_recursive(s_path *list, int options)
 {
 	if (list != NULL)
 	{
-		if (r_CHECK(options))
+		if (options & B_REV)
 		{
 			handle_recursive(list->right, options);
 			handle_command(list->path, options);

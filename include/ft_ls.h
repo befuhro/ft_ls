@@ -6,15 +6,11 @@
 #include <stdio.h>
 #include <dirent.h>
 
-#define T_BITE (1 << 0)
-#define R_BITE (1 << 1)
-#define r_BITE (1 << 2)
-#define A_BITE (1 << 3)
-
-#define T_CHECK(x) (x & (1 << 0)) >> 0
-#define R_CHECK(x) (x & (1 << 1)) >> 1
-#define r_CHECK(x) (x & (1 << 2)) >> 2
-#define A_CHECK(x) (x & (1 << 3)) >> 3
+#define B_TIME	1
+#define B_REC	2
+#define B_REV	4
+#define B_ALL	8
+#define B_LIST	16
 
 typedef struct		t_command
 {

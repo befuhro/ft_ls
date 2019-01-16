@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/17 19:48:11 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/18 00:32:33 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/16 17:13:45 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,10 +19,11 @@ int	 create_options_byte(char *options)
 	int byte;
 
 	byte = 0;
-	byte = (ft_strchr(options, 't')) ? byte + T_BITE : byte;
-	byte = (ft_strchr(options, 'R')) ? byte + R_BITE : byte;
-	byte = (ft_strchr(options, 'r')) ? byte + r_BITE : byte;
-	byte = (ft_strchr(options, 'a')) ? byte + A_BITE : byte;
+	byte = (ft_strchr(options, 't')) ? byte + B_TIME : byte;
+	byte = (ft_strchr(options, 'R')) ? byte + B_REC : byte;
+	byte = (ft_strchr(options, 'r')) ? byte + B_REV : byte;
+	byte = (ft_strchr(options, 'a')) ? byte + B_ALL : byte;
+	byte = (ft_strchr(options, 'l')) ? byte + B_LIST : byte;
 	return (byte);
 }
 

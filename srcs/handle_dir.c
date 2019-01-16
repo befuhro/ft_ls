@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/17 19:48:14 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/21 15:34:37 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/16 17:12:07 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,7 +19,7 @@ void	insert_file(int options, s_file **files, s_file *file)
 		*files = file;
 	else
 	{
-		if (T_CHECK(options))
+		if (options & B_TIME)
 		{
 			if ((*files)->mtime > file->mtime ||
 				((*files)->mtime == file->mtime &&
@@ -77,11 +77,11 @@ s_file	*run_through_dir(int options, DIR *directorie, char *path, s_path **list)
 		file.stat = malloc(sizeof(struct stat));
 		lstat(entire_path, file.stat);
 		if (file.info->d_name[0] != '.' || 
-				(A_CHECK(options) && ft_strcmp(file.info->d_name, ".") &&
+				(options & B_ALL && ft_strcmp(file.info->d_name, ".") &&
 				 ft_strcmp(file.info->d_name, "..")))
 		{
 			place_file(options, file, &files);
-			if (S_ISDIR(file.stat->st_mode) && R_CHECK(options))
+			if (S_ISDIR(file.stat->st_mode) && options & B_REC)
 				append_recursive_tree(entire_path, list, options);
 		}
 		ft_strdel(&entire_path);
