@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/17 19:48:14 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/16 17:12:07 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/17 22:38:07 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,17 +40,22 @@ void	insert_file(int options, s_file **files, s_file *file)
 
 s_file	*generate_file(s_file file)
 {
-	s_file *link_file;
+	s_file *node;
 
-	link_file = (s_file*)malloc(sizeof(s_file));
-	link_file->left = NULL;
-	link_file->right = NULL;
-	link_file->info = file.info;
-	link_file->stat = file.stat;
-	link_file->mtime = file.stat->st_mtime;
-	link_file->mode = file.stat->st_mode;
-	ft_strcpy(link_file->name, file.info->d_name);
-	return (link_file);
+	node = malloc(sizeof(s_file));
+	node->left = NULL;
+	node->right = NULL;
+	node->info = file.info;
+	node->stat = file.stat;
+	node->mtime = file.stat->st_mtime;
+	node->mode = file.stat->st_mode;
+	node->uid = file.stat->st_uid;
+	node->gid = file.stat->st_gid;
+	node->size = file.stat->st_size;
+	node->links = file.stat->st_nlink;
+	node->date = ft_strdup(ctime(&node->mtime));
+	ft_strcpy(node->name, file.info->d_name);
+	return (node);
 }
 
 void	place_file(int options, s_file file, s_file **files)

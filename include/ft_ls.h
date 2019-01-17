@@ -5,6 +5,9 @@
 #include <sys/stat.h>
 #include <stdio.h>
 #include <dirent.h>
+#include <pwd.h>
+#include <grp.h>
+#include <time.h>
 
 #define B_TIME	1
 #define B_REC	2
@@ -21,10 +24,15 @@ typedef struct		t_command
 typedef struct		t_file
 {
 	char			name[256];
-	time_t				mtime;
-	mode_t				mode;
+	char			*date;
+	time_t			mtime;
+	nlink_t			links;
+	mode_t			mode;
+	uid_t			uid;
+	gid_t			gid;
+	off_t			size;
+	struct stat     *stat;
 	struct dirent	*info;
-	struct stat		*stat;
 	struct t_file	*left;
 	struct t_file	*right;
 }					s_file;
