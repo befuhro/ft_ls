@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/17 19:48:11 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/16 17:13:45 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/18 00:47:32 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,17 +27,38 @@ int	 create_options_byte(char *options)
 	return (byte);
 }
 
+void	get_total(s_file *file, int *total)
+{
+	if (file != NULL)
+	{
+		get_total(file->left, total);
+		*total += file->blocks;
+		get_total(file->right, total);
+	}
+}
 
 void	list_dir(int options, DIR *directorie, char *path)
 {
 	s_file	*files;
 	s_path *list;
+	int total;
 
+	total = 0;
 	list = NULL;
 	files = run_through_dir(options, directorie, path, &list);
 	ft_putchar('\n');
-	ft_putstr(path);
-	ft_putstr(":\n");
+	if (options & B_REC)
+	{
+		ft_putstr(path);
+		ft_putstr(":\n");
+	}
+	if (options & B_LIST)
+	{
+		get_total(files, &total);
+		ft_putstr("total ");
+		ft_putnbr(total);
+		ft_putchar('\n');
+	}
 	print(files, options);
 	dealloc_tree(files);
 	closedir(directorie);

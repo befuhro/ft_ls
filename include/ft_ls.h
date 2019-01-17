@@ -26,6 +26,7 @@ typedef struct		t_file
 	char			name[256];
 	char			*date;
 	time_t			mtime;
+	blkcnt_t		blocks;
 	nlink_t			links;
 	mode_t			mode;
 	uid_t			uid;

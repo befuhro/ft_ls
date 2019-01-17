@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/17 19:48:14 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/17 22:38:07 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/18 00:47:36 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -53,6 +53,7 @@ s_file	*generate_file(s_file file)
 	node->gid = file.stat->st_gid;
 	node->size = file.stat->st_size;
 	node->links = file.stat->st_nlink;
+	node->blocks = file.stat->st_blocks;
 	node->date = ft_strdup(ctime(&node->mtime));
 	ft_strcpy(node->name, file.info->d_name);
 	return (node);
