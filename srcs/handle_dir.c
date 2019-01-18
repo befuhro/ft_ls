@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/17 19:48:14 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/18 00:47:36 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/18 18:13:02 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -82,12 +82,12 @@ s_file	*run_through_dir(int options, DIR *directorie, char *path, s_path **list)
 		entire_path = append_path(path, file.info->d_name);
 		file.stat = malloc(sizeof(struct stat));
 		lstat(entire_path, file.stat);
-		if (file.info->d_name[0] != '.' || 
-				(options & B_ALL && ft_strcmp(file.info->d_name, ".") &&
-				 ft_strcmp(file.info->d_name, "..")))
+		if (file.info->d_name[0] != '.' || (options & B_ALL))
 		{
 			place_file(options, file, &files);
-			if (S_ISDIR(file.stat->st_mode) && options & B_REC)
+			if (S_ISDIR(file.stat->st_mode) && options & B_REC &&
+				ft_strcmp(file.info->d_name, ".") &&
+				 ft_strcmp(file.info->d_name, ".."))
 				append_recursive_tree(entire_path, list, options);
 		}
 		ft_strdel(&entire_path);
