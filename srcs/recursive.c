@@ -1,3 +1,16 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   recursive.c                                      .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2019/01/18 23:25:50 by befuhro      #+#   ##    ##    #+#       */
+/*   Updated: 2019/01/18 23:47:01 by befuhro     ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
 char *append_path(char *s1, char *s2)
@@ -76,13 +89,13 @@ void	handle_recursive(s_path *list, int options)
 		if (options & B_REV)
 		{
 			handle_recursive(list->right, options);
-			handle_command(list->path, options);
+			handle_path(list->path, options);
 			handle_recursive(list->left, options);
 		}
 		else
 		{
 			handle_recursive(list->left, options);
-			handle_command(list->path, options);
+			handle_path(list->path, options);
 			handle_recursive(list->right, options);
 		}
 		ft_strdel(&list->path);

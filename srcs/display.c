@@ -1,3 +1,16 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   display.c                                        .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2019/01/19 02:08:22 by befuhro      #+#   ##    ##    #+#       */
+/*   Updated: 2019/01/19 02:25:59 by befuhro     ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
 void	print_rights(mode_t mode)
@@ -18,32 +31,6 @@ void	print_rights(mode_t mode)
 	ft_putstr(s);
 }
 
-void	print_size(off_t size)
-{
-	if (size < 1000)
-	{
-		ft_putnbr(size);
-		ft_putchar('B');
-	}
-	else if (size < 1000000)
-	{
-		ft_putnbr(size / 1024);
-		ft_putchar('K');
-	}
-	else if (size < 1000000000)
-	{
-		ft_putnbr(size / 1048576);
-		ft_putchar('M');
-	}
-	else if (size < 1000000000000)
-	{
-		ft_putnbr(size / 1073741824);
-		ft_putchar('M');
-	}
-	else
-		ft_putnbr(size);
-}
-
 void	l_display(s_file *file)
 {
 	struct	group	*grp;
@@ -51,7 +38,6 @@ void	l_display(s_file *file)
 
 	pwd = getpwuid(file->uid);	
 	grp = getgrgid(file->gid);	
-	
 	print_rights(file->mode);
 	ft_putchar('\t');
 	ft_putnbr(file->links);
@@ -62,7 +48,7 @@ void	l_display(s_file *file)
 	ft_putchar('\t');
 	ft_putnbr(file->size);
 	ft_putchar('\t');
-	write(1, file->date + 4, 12);
+	write(1, ctime(&file->mtime) + 4, 12);
 	ft_putchar('\t');
 	ft_putendl(file->name);	
 }

@@ -1,3 +1,16 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_ls.h                                          .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2019/01/18 23:43:45 by befuhro      #+#   ##    ##    #+#       */
+/*   Updated: 2019/01/19 02:16:06 by befuhro     ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
 #ifndef FT_LS_H
 #define FT_LS_H
 #include "libft.h"
@@ -24,7 +37,6 @@ typedef struct		t_command
 typedef struct		t_file
 {
 	char			name[256];
-	char			*date;
 	time_t			mtime;
 	blkcnt_t		blocks;
 	nlink_t			links;
@@ -50,11 +62,12 @@ typedef	struct		t_path
 void 	list_dir(int options, DIR *repository, char *path);
 void    append_recursive_tree(char *path, s_path **list, int options);
 char 	*append_path(char *s1, char *s2);
-void    handle_command(char *path, int options);
+void    handle_path(char *path, int options);
 void    print(s_file *files, int options);
 void    dealloc_tree(s_file *files);
 void    dealloc_recursive_list(s_path *list);
 void 	handle_recursive(s_path *list, int options);
+void    place_file(int options, s_file file, s_file **files);
 s_file  *run_through_dir(int options, DIR *directorie, char *path, s_path **list);
 
 #endif

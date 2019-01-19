@@ -6,68 +6,22 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/17 19:48:14 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/18 18:13:02 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/19 02:17:37 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	insert_file(int options, s_file **files, s_file *file)
+void	get_total(s_file *file, int *total)
 {
-	if (*files == NULL)
-		*files = file;
-	else
+	if (file != NULL)
 	{
-		if (options & B_TIME)
-		{
-			if ((*files)->mtime > file->mtime ||
-				((*files)->mtime == file->mtime &&
-				ft_strcmp((*files)->name, file->name) < 0))
-				insert_file(options, &(*files)->right, file);
-			else
-				insert_file(options, &(*files)->left, file);
-		}
-		else
-		{
-			if (ft_strcmp((*files)->name, file->name) < 0)
-				insert_file(options, &(*files)->right, file);
-			else
-				insert_file(options, &(*files)->left, file);
-		}
+		get_total(file->left, total);
+		*total += file->blocks;
+		get_total(file->right, total);
 	}
 }
-
-s_file	*generate_file(s_file file)
-{
-	s_file *node;
-
-	node = malloc(sizeof(s_file));
-	node->left = NULL;
-	node->right = NULL;
-	node->info = file.info;
-	node->stat = file.stat;
-	node->mtime = file.stat->st_mtime;
-	node->mode = file.stat->st_mode;
-	node->uid = file.stat->st_uid;
-	node->gid = file.stat->st_gid;
-	node->size = file.stat->st_size;
-	node->links = file.stat->st_nlink;
-	node->blocks = file.stat->st_blocks;
-	node->date = ft_strdup(ctime(&node->mtime));
-	ft_strcpy(node->name, file.info->d_name);
-	return (node);
-}
-
-void	place_file(int options, s_file file, s_file **files)
-{
-	s_file *link_file;
-
-	link_file = generate_file(file);
-	insert_file(options, files, link_file);
-}
-
-
 
 s_file	*run_through_dir(int options, DIR *directorie, char *path, s_path **list)
 {
@@ -86,12 +40,40 @@ s_file	*run_through_dir(int options, DIR *directorie, char *path, s_path **list)
 		{
 			place_file(options, file, &files);
 			if (S_ISDIR(file.stat->st_mode) && options & B_REC &&
-				ft_strcmp(file.info->d_name, ".") &&
-				 ft_strcmp(file.info->d_name, ".."))
+					ft_strcmp(file.info->d_name, ".") &&
+					ft_strcmp(file.info->d_name, ".."))
 				append_recursive_tree(entire_path, list, options);
 		}
 		ft_strdel(&entire_path);
 		free(file.stat);
 	}
 	return (files);
+}
+
+void	list_dir(int options, DIR *directorie, char *path)
+{
+	s_file	*files;
+	s_path *list;
+	int total;
+
+	total = 0;
+	list = NULL;
+	files = run_through_dir(options, directorie, path, &list);
+	ft_putchar('\n');
+	if (options & B_REC)
+	{
+		ft_putstr(path);
+		ft_putstr(":\n");
+	}
+	if (options & B_LIST)
+	{
+		get_total(files, &total);
+		ft_putstr("total ");
+		ft_putnbr(total);
+		ft_putchar('\n');
+	}
+	print(files, options);
+	dealloc_tree(files);
+	closedir(directorie);
+	handle_recursive(list, options);
 }

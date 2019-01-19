@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/17 19:48:11 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/18 00:47:32 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/19 03:33:07 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,63 +27,41 @@ int	 create_options_byte(char *options)
 	return (byte);
 }
 
-void	get_total(s_file *file, int *total)
-{
-	if (file != NULL)
-	{
-		get_total(file->left, total);
-		*total += file->blocks;
-		get_total(file->right, total);
-	}
-}
-
-void	list_dir(int options, DIR *directorie, char *path)
-{
-	s_file	*files;
-	s_path *list;
-	int total;
-
-	total = 0;
-	list = NULL;
-	files = run_through_dir(options, directorie, path, &list);
-	ft_putchar('\n');
-	if (options & B_REC)
-	{
-		ft_putstr(path);
-		ft_putstr(":\n");
-	}
-	if (options & B_LIST)
-	{
-		get_total(files, &total);
-		ft_putstr("total ");
-		ft_putnbr(total);
-		ft_putchar('\n');
-	}
-	print(files, options);
-	dealloc_tree(files);
-	closedir(directorie);
-	handle_recursive(list, options);
-}
-
-
-void	handle_command(char *path, int options)
+void	handle_path(char *path, int options)
 {
 	DIR *directorie;
 
 	if ((directorie = opendir(path)) == NULL)
+	{
+		ft_putstr("ft_ls: ");
 		perror(path);
+	}
 	else
 		list_dir(options, directorie, path);
 }
 
+void	handle_paths()
+{
+	
+}
+
 int		main(int ac, char **av)
 {
-	int options;
+	int		options;
+	char	**paths;
+
+	paths = av + 2;
 	if (av[1] != NULL)
 		options = create_options_byte(av[1]);
 	else
 		options = 0;
 	if (ac >= 2)
-		handle_command(av[2], options);
+	{
+		while (*paths != NULL)
+		{
+			handle_path(*paths, options);
+			paths++;
+		}
+	}
 	return (0);
 }
