@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/17 19:48:11 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/19 04:59:05 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/19 21:51:41 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,9 +40,18 @@ void	handle_path(char *path, int options)
 		list_dir(options, directorie, path);
 }
 
-void	handle_paths()
+void	handle_paths(char **paths, int options)
 {
-	
+	if (*paths != NULL)
+	{
+		while (*paths != NULL)
+		{
+			handle_path(*paths, options);
+			paths++;
+		}
+	}
+	else
+		handle_path(".", options);
 }
 
 int		main(int ac, char **av)
@@ -55,13 +64,7 @@ int		main(int ac, char **av)
 		options = create_options_byte(av[1]);
 	else
 		options = 0;
-	if (ac >= 2)
-	{
-		while (*paths != NULL)
-		{
-			handle_path(*paths, options);
-			paths++;
-		}
-	}
+	handle_paths(av + 2, options);
+	(void)ac;
 	return (0);
 }

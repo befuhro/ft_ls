@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/17 19:48:14 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/19 04:15:52 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/19 20:25:35 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,13 +38,14 @@ s_file	*run_through_dir(int options, DIR *directorie, char *path, s_path **list)
 		lstat(entire_path, file.stat);
 		if (file.info->d_name[0] != '.' || (options & B_ALL))
 		{
-			place_file(options, file, &files, path);
+			place_file(options, file, &files, entire_path);
 			if (S_ISDIR(file.stat->st_mode) && options & B_REC &&
 					ft_strcmp(file.info->d_name, ".") &&
 					ft_strcmp(file.info->d_name, ".."))
 				append_recursive_tree(entire_path, list, options);
 		}
 		ft_strdel(&entire_path);
+		entire_path = NULL;
 		free(file.stat);
 	}
 	return (files);

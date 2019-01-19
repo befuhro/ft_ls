@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/19 02:08:22 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/19 04:58:10 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/19 21:29:03 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,23 +35,40 @@ void	l_display(s_file *file)
 {
 	struct	group	*grp;
 	struct	passwd	*pwd;
-
+	
+	pwd = NULL;	
+	grp = NULL;	
 	pwd = getpwuid(file->uid);	
 	grp = getgrgid(file->gid);	
 	print_rights(file->mode);
 	ft_putchar('\t');
 	ft_putnbr(file->links);
 	ft_putchar(' ');
-	ft_putstr(pwd->pw_name);
+
+
+
+
+	if (pwd != NULL)
+		ft_putstr(pwd->pw_name);
+	else
+		ft_putnbr(file->uid);
 	ft_putchar('\t');
-	ft_putstr(grp->gr_name);
+	if (grp != NULL)
+		ft_putstr(grp->gr_name);
+	else
+		ft_putnbr(file->gid);
+
 	ft_putchar('\t');
+
+
+
+
 	ft_putnbr(file->size);
 	ft_putchar('\t');
 	write(1, ctime(&file->mtime) + 4, 12);
 	ft_putchar('\t');
 	ft_putstr(file->name);	
-	if (ft_strlen(file->symlink))
+	if (file->symlink[0] != 0)
 	{
 		ft_putstr(" -> ");
 		ft_putstr(file->symlink);

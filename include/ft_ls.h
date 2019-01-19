@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/18 23:43:45 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/19 04:58:01 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/19 21:12:21 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,7 +36,6 @@ typedef struct		t_command
 
 typedef struct		t_file
 {
-	char			*path;
 	char			name[256];
 	char			symlink[1024];
 	time_t			mtime;

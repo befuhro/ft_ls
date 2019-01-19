@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/19 02:12:41 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/19 04:58:07 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/19 21:47:01 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -56,12 +56,7 @@ s_file	*generate_file(s_file file, char *path)
 	node->blocks = file.stat->st_blocks;
 	ft_strcpy(node->name, file.info->d_name);
 	ft_bzero(node->symlink, 1024);
-	node->path = malloc(sizeof(char) * (ft_strlen(path) + ft_strlen(node->name + 2)));
-	ft_bzero(node->path, ft_strlen(path) + ft_strlen(node->name) + 2);
-	ft_strcpy(node->path, path);
-	node->path[ft_strlen(path)] = '/';
-	ft_strcpy(node->path + ft_strlen(path) + 1, node->name);
-	readlink(node->path, node->symlink, sizeof(node->symlink) - 1);
+	readlink(path, node->symlink, 1023);
 	return (node);
 }
 
