@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/19 02:08:22 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/19 02:25:59 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/19 04:58:10 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -50,7 +50,13 @@ void	l_display(s_file *file)
 	ft_putchar('\t');
 	write(1, ctime(&file->mtime) + 4, 12);
 	ft_putchar('\t');
-	ft_putendl(file->name);	
+	ft_putstr(file->name);	
+	if (ft_strlen(file->symlink))
+	{
+		ft_putstr(" -> ");
+		ft_putstr(file->symlink);
+	}
+	ft_putchar('\n');
 }
 
 void	print(s_file *files, int options)

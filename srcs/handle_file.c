@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/19 02:12:41 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/19 02:27:02 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/19 04:58:07 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,7 +38,7 @@ void	insert_file(int options, s_file **files, s_file *file)
 	}
 }
 
-s_file	*generate_file(s_file file)
+s_file	*generate_file(s_file file, char *path)
 {
 	s_file *node;
 
@@ -55,13 +55,20 @@ s_file	*generate_file(s_file file)
 	node->links = file.stat->st_nlink;
 	node->blocks = file.stat->st_blocks;
 	ft_strcpy(node->name, file.info->d_name);
+	ft_bzero(node->symlink, 1024);
+	node->path = malloc(sizeof(char) * (ft_strlen(path) + ft_strlen(node->name + 2)));
+	ft_bzero(node->path, ft_strlen(path) + ft_strlen(node->name) + 2);
+	ft_strcpy(node->path, path);
+	node->path[ft_strlen(path)] = '/';
+	ft_strcpy(node->path + ft_strlen(path) + 1, node->name);
+	readlink(node->path, node->symlink, sizeof(node->symlink) - 1);
 	return (node);
 }
 
-void	place_file(int options, s_file file, s_file **files)
+void	place_file(int options, s_file file, s_file **files, char *path)
 {
 	s_file *link_file;
 
-	link_file = generate_file(file);
+	link_file = generate_file(file, path);
 	insert_file(options, files, link_file);
 }

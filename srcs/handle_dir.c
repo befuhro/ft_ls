@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/17 19:48:14 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/19 02:17:37 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/19 04:15:52 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -38,7 +38,7 @@ s_file	*run_through_dir(int options, DIR *directorie, char *path, s_path **list)
 		lstat(entire_path, file.stat);
 		if (file.info->d_name[0] != '.' || (options & B_ALL))
 		{
-			place_file(options, file, &files);
+			place_file(options, file, &files, path);
 			if (S_ISDIR(file.stat->st_mode) && options & B_REC &&
 					ft_strcmp(file.info->d_name, ".") &&
 					ft_strcmp(file.info->d_name, ".."))
@@ -60,7 +60,7 @@ void	list_dir(int options, DIR *directorie, char *path)
 	list = NULL;
 	files = run_through_dir(options, directorie, path, &list);
 	ft_putchar('\n');
-	if (options & B_REC)
+	if (options & B_REC || options & B_LIST)
 	{
 		ft_putstr(path);
 		ft_putstr(":\n");

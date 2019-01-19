@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/18 23:43:45 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/19 02:16:06 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/19 04:58:01 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,7 +36,9 @@ typedef struct		t_command
 
 typedef struct		t_file
 {
+	char			*path;
 	char			name[256];
+	char			symlink[1024];
 	time_t			mtime;
 	blkcnt_t		blocks;
 	nlink_t			links;
@@ -67,7 +69,7 @@ void    print(s_file *files, int options);
 void    dealloc_tree(s_file *files);
 void    dealloc_recursive_list(s_path *list);
 void 	handle_recursive(s_path *list, int options);
-void    place_file(int options, s_file file, s_file **files);
+void    place_file(int options, s_file file, s_file **files, char *path);
 s_file  *run_through_dir(int options, DIR *directorie, char *path, s_path **list);
 
 #endif
