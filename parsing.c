@@ -31,6 +31,22 @@ int stock_option(char *av)
 }
 
 /*
+void    create_options_byte(char *options, int *byte)
+{
+     if (!(*byte & B_TIME))
+          *byte = (strchr(options, 't')) ? *byte + B_TIME : *byte;
+      if (!(*byte & B_REC))
+          *byte = (strchr(options, 'R')) ? *byte + B_REC : *byte;
+      if (!(*byte & B_REV))
+          *byte = (strchr(options, 'r')) ? *byte + B_REV : *byte;
+      if (!(*byte & B_ALL))
+          *byte = (strchr(options, 'a')) ? *byte + B_ALL : *byte;
+      if (!(*byte & B_TIME))
+          *byte = (strchr(options, 'l')) ? *byte + B_LIST : *byte;
+}
+
+
+/*
 int   *get_option(char **av, int ac)
 {
 	int i;
@@ -101,6 +117,8 @@ void	parser(char **av, int ac)
 int		index_for_path(char **av, int ac)
 {
 	int i;
+	
+	//int options;
 	int *options;
 	int j;
 	struct stat buf;
@@ -110,8 +128,10 @@ int		index_for_path(char **av, int ac)
 	while (*av[i] && ac > i)
 	{
 		while (is_under_s(av[i]) == 1 && (lstat(av[i], &buf) == -1))
+		//while (av[i][0] == '-' && (lstat(av[i], &buf) == -1))
 		{
 			options[j] = stock_option(av[i]);
+			//create_options_byte(av[i, &options)
 			j++;
 			i++;
 		}
