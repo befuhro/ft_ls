@@ -95,17 +95,26 @@ void	parser(char **av, int ac)
 		}
 	}
 }
+
+
 */
 int		index_for_path(char **av, int ac)
 {
 	int i;
+	int *options;
+	int j;
 	struct stat buf;
 
 	i = 0;
-	while (*av[i++] && ac > i)
+	j = 0;
+	while (*av[i] && ac > i)
 	{
-		if (is_under_s(av[i]) == 1 && (lstat(av[i], &buf) == -1))
-			continue ;
+		while (is_under_s(av[i]) == 1 && (lstat(av[i], &buf) == -1))
+		{
+			options[j] = stock_option(av[i]);
+			j++;
+			i++;
+		}
 		else
 			return (i);
 	}
