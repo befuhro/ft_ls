@@ -1,7 +1,7 @@
 NAME = ft_ls
 
 SRCS_PATH = srcs/
-SRCS_NAME = main.c handle_dir.c handle_file.c display.c recursive.c dealloc.c
+SRCS_NAME = main.c handle_paths.c handle_dir.c handle_file.c display.c recursive.c dealloc.c
 SRCS = $(addprefix $(SRCS_PATH),$(SRCS_NAME))
 
 OBJS_PATH =	objs/

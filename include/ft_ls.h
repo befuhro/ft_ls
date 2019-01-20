@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/18 23:43:45 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/19 21:12:21 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 03:55:19 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -60,10 +60,13 @@ typedef	struct		t_path
 
 }					s_path;
 
+void	handle_file(char *file, int options);
 void 	list_dir(int options, DIR *repository, char *path);
 void    append_recursive_tree(char *path, s_path **list, int options);
 char 	*append_path(char *s1, char *s2);
 void    handle_path(char *path, int options);
+void    handle_paths(char **paths, int options);
+void    handle_args(char **paths, int options);
 void    print(s_file *files, int options);
 void    dealloc_tree(s_file *files);
 void    dealloc_recursive_list(s_path *list);

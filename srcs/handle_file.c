@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/19 02:12:41 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/19 21:47:01 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 03:44:15 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -66,4 +66,11 @@ void	place_file(int options, s_file file, s_file **files, char *path)
 
 	link_file = generate_file(file, path);
 	insert_file(options, files, link_file);
+}
+
+void    handle_file(char *file, int options)
+{
+	ft_putendl(file);
+	ft_putnbr(options);
+	ft_putchar('\n');
 }

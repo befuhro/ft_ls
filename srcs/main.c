@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/17 19:48:11 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/19 21:51:41 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 03:42:47 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,57 +14,46 @@
 #include "ft_ls.h"
 #include <errno.h>
 
-int	 create_options_byte(char *options)
+void    create_options_byte(char *options, int *byte)
 {
-	int byte;
-
-	byte = 0;
-	byte = (ft_strchr(options, 't')) ? byte + B_TIME : byte;
-	byte = (ft_strchr(options, 'R')) ? byte + B_REC : byte;
-	byte = (ft_strchr(options, 'r')) ? byte + B_REV : byte;
-	byte = (ft_strchr(options, 'a')) ? byte + B_ALL : byte;
-	byte = (ft_strchr(options, 'l')) ? byte + B_LIST : byte;
-	return (byte);
+	if (!(*byte & B_TIME))
+		*byte = (ft_strchr(options, 't')) ? *byte + B_TIME : *byte;
+	if (!(*byte & B_REC))
+		*byte = (ft_strchr(options, 'R')) ? *byte + B_REC : *byte;
+	if (!(*byte & B_REV))
+		*byte = (ft_strchr(options, 'r')) ? *byte + B_REV : *byte;
+	if (!(*byte & B_ALL))
+		*byte = (ft_strchr(options, 'a')) ? *byte + B_ALL : *byte;
+	if (!(*byte & B_TIME))
+		*byte = (ft_strchr(options, 'l')) ? *byte + B_LIST : *byte;
 }
 
-void	handle_path(char *path, int options)
+int		index_for_path(int ac, char **av, int *options)
 {
-	DIR *directorie;
+	int i;
+	struct stat buf;
 
-	if ((directorie = opendir(path)) == NULL)
+	i = 0;
+	while (*av[i++] && ac > i)
 	{
-		ft_putstr("ft_ls: ");
-		perror(path);
-	}
-	else
-		list_dir(options, directorie, path);
-}
-
-void	handle_paths(char **paths, int options)
-{
-	if (*paths != NULL)
-	{
-		while (*paths != NULL)
+		if (av[i][0] == '-')
 		{
-			handle_path(*paths, options);
-			paths++;
+			if (lstat(av[i], &buf) == -1)
+				create_options_byte(av[i], options);
 		}
+		else
+			return (i - 1);
 	}
-	else
-		handle_path(".", options);
+	return (i - 1);
 }
 
 int		main(int ac, char **av)
 {
 	int		options;
-	char	**paths;
+	int 	index_path;
 
-	paths = av + 2;
-	if (av[1] != NULL)
-		options = create_options_byte(av[1]);
-	else
-		options = 0;
-	handle_paths(av + 2, options);
-	(void)ac;
+	options = 0;
+	index_path = index_for_path(ac, av, &options);
+	handle_args(av + index_path + 1, options);
 	return (0);
 }
