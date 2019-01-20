@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/20 02:49:35 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 20:09:34 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 21:03:41 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,10 +40,10 @@ void	handle_paths(char **paths, int options)
 		handle_path(".", options);
 }
 
-void	throw_error_path(char  **paths, int length_array)
+void	throw_error_path(char **paths, int length_array)
 {
-	struct stat info;
-	int 		i;
+	struct stat	info;
+	int			i;
 
 	i = 0;
 	while (i < length_array)

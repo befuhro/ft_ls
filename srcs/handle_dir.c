@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/17 19:48:14 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 17:20:56 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 21:08:03 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -53,13 +53,24 @@ s_file	*run_through_dir(int options, DIR *directorie, char *path,
 	return (files);
 }
 
+void	display_total(s_file file)
+{
+	int total;
+
+	get_total(&file, &total);
+	if (total)
+	{
+		ft_putstr("total ");
+		ft_putnbr(total);
+		ft_putchar('\n');
+	}
+}
+
 void	list_dir(int options, DIR *directorie, char *path)
 {
 	s_file	*files;
 	s_path	*list;
-	int		total;
 
-	total = 0;
 	list = NULL;
 	files = run_through_dir(options, directorie, path, &list);
 	ft_putchar('\n');
@@ -69,15 +80,7 @@ void	list_dir(int options, DIR *directorie, char *path)
 		ft_putstr(":\n");
 	}
 	if (options & B_LIST)
-	{
-		get_total(files, &total);
-		if (total)
-		{
-			ft_putstr("total ");
-			ft_putnbr(total);
-			ft_putchar('\n');
-		}
-	}
+		display_total(*files);
 	print(files, options);
 	dealloc_tree(files);
 	closedir(directorie);

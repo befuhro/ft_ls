@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/19 02:08:22 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 20:02:52 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 21:11:49 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,7 +37,7 @@ void	print_rights(mode_t mode)
 	ft_putstr(s);
 }
 
-void	display_middle(s_file file)
+void	display_end(s_file file)
 {
 	ft_putchar('\t');
 	if (file.minor || file.major)
@@ -49,6 +49,15 @@ void	display_middle(s_file file)
 	else
 		ft_putnbr(file.size);
 	ft_putchar('\t');
+	write(1, ctime(&file.mtime) + 4, 12);
+	ft_putchar('\t');
+	ft_putstr(file.name);
+	if (file.symlink[0] != 0)
+	{
+		ft_putstr(" -> ");
+		ft_putstr(file.symlink);
+	}
+	ft_putchar('\n');
 }
 
 void	l_display(s_file *file)
@@ -73,22 +82,7 @@ void	l_display(s_file *file)
 		ft_putstr(grp->gr_name);
 	else
 		ft_putnbr(file->gid);
-//	ft_putchar('\t');
-//	ft_putnbr(file->size);
-//	ft_putchar('\t');
-
-	display_middle(*file);
-
-
-	write(1, ctime(&file->mtime) + 4, 12);
-	ft_putchar('\t');
-	ft_putstr(file->name);
-	if (file->symlink[0] != 0)
-	{
-		ft_putstr(" -> ");
-		ft_putstr(file->symlink);
-	}
-	ft_putchar('\n');
+	display_end(*file);
 }
 
 void	print(s_file *files, int options)
