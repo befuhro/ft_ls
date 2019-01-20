@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/19 02:12:41 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 04:45:02 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 15:07:35 by ldaveau     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,9 +21,8 @@ void	insert_file(int options, s_file **files, s_file *file)
 	{
 		if (options & B_TIME)
 		{
-			if ((*files)->mtime > file->mtime ||
-					((*files)->mtime == file->mtime &&
-					 ft_strcmp((*files)->name, file->name) < 0))
+			if ((*files)->mtime > file->mtime || ((*files)->mtime == file->mtime
+						&& ft_strcmp((*files)->name, file->name) < 0))
 				insert_file(options, &(*files)->right, file);
 			else
 				insert_file(options, &(*files)->left, file);
@@ -42,7 +41,8 @@ s_file	*generate_file(s_file file, char *path)
 {
 	s_file *node;
 
-	node = malloc(sizeof(s_file));
+	if (!(node = malloc(sizeof(s_file))))
+		return (NULL);
 	node->left = NULL;
 	node->right = NULL;
 	node->info = file.info;
@@ -68,13 +68,15 @@ void	place_file(int options, s_file file, s_file **files, char *path)
 	insert_file(options, files, link_file);
 }
 
-void    handle_file(char *path, int options)
+void	handle_file(char *path, int options)
 {
 	s_file file;
 	s_file *ptr;
 
-	file.info = malloc(sizeof(struct dirent));
-	file.stat = malloc(sizeof(struct stat));
+	if (!(file.info = malloc(sizeof(struct dirent))))
+		return (NULL);
+	if (!(file.stat = malloc(sizeof(struct stat))))
+		return (NULL);
 	lstat(path, file.stat);
 	ft_strcpy(file.info->d_name, path);
 	ptr = generate_file(file, path);

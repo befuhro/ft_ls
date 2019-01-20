@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/17 19:48:11 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 07:10:15 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 14:49:15 by ldaveau     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,7 +14,7 @@
 #include "ft_ls.h"
 #include <errno.h>
 
-void    create_options_byte(char *options, int *byte)
+void	create_options_byte(char *options, int *byte)
 {
 	if (!(*byte & B_TIME))
 		*byte = (ft_strchr(options, 't')) ? *byte + B_TIME : *byte;
@@ -30,14 +30,17 @@ void    create_options_byte(char *options, int *byte)
 
 int		index_for_path(int ac, char **av, int *options)
 {
-	int i;
-	struct stat buf;
+	int			i;
+	struct stat	buf;
 
 	i = 0;
 	while (*av[i++] && ac > i)
 	{
 		if (av[i][0] == '-')
 		{
+			if (av[i][1] != 't' && av[i][1] != 'l' && av[i][1] != 'a' &&
+					av[i][1] != 'r' && av[i][1] != 'R')
+				return (-1);
 			if (lstat(av[i], &buf) == -1)
 				create_options_byte(av[i], options);
 		}
@@ -54,19 +57,20 @@ char	**sort_paths(int size, char **args, int options)
 	char	**paths;
 
 	i = -1;
-	paths = malloc(sizeof(char*) * size + 1);
+	if (!(paths = malloc(sizeof(char*) * size + 1)))
+		return (NULL);
 	while (i++ < size - 1)
 		paths[i] = args[i];
 	i = -1;
 	while (i++ < size - 2)
 	{
-		if ((ft_strcmp(paths[i], paths[i + 1]) > 0  && !(options & B_REV)) ||
-			(ft_strcmp(paths[i], paths[i + 1]) < 0  && options & B_REV))
+		if ((ft_strcmp(paths[i], paths[i + 1]) > 0 && !(options & B_REV)) ||
+				(ft_strcmp(paths[i], paths[i + 1]) < 0 && options & B_REV))
 		{
 			tmp = paths[i];
 			paths[i] = paths[i + 1];
 			paths[i + 1] = tmp;
-			i = - 1;
+			i = -1;
 		}
 	}
 	paths[i + 1] = NULL;
@@ -76,7 +80,7 @@ char	**sort_paths(int size, char **args, int options)
 int		main(int ac, char **av)
 {
 	int		options;
-	int 	index;
+	int		index;
 	char	**paths;
 
 	paths = NULL;

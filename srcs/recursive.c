@@ -6,29 +6,31 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/18 23:25:50 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/18 23:47:01 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 12:47:09 by ldaveau     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-char *append_path(char *s1, char *s2)
+char	*append_path(char *s1, char *s2)
 {
 	char *s;
 
 	if (s1[ft_strlen(s1) - 1] != '/')
 	{
-		s = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 2));
-		ft_memset(s,'\0', ft_strlen(s1) + ft_strlen(s2) + 2);
+		if (!(s = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 2))))
+			return (NULL);
+		ft_memset(s, '\0', ft_strlen(s1) + ft_strlen(s2) + 2);
 		ft_strcpy(s, s1);
 		s[ft_strlen(s1)] = '/';
 		ft_strcpy(&s[ft_strlen(s1) + 1], s2);
 	}
 	else
 	{
-		s = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-		ft_memset(s,'\0', ft_strlen(s1) + ft_strlen(s2) + 1);
+		if (!(s = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1))))
+			return (NULL);
+		ft_memset(s, '\0', ft_strlen(s1) + ft_strlen(s2) + 1);
 		ft_strcpy(s, s1);
 		ft_strcpy(&s[ft_strlen(s1)], s2);
 	}
@@ -43,12 +45,11 @@ void	insert_recursive_node(s_path *node, s_path **list, int options)
 	{
 		if (options & B_TIME)
 		{
-			 if ((*list)->mtime > node->mtime ||
-				 ((*list)->mtime == node->mtime &&
-			      ft_strcmp((*list)->path, node->path) < 0))
-		       insert_recursive_node(node, &(*list)->right, options);
+			if ((*list)->mtime > node->mtime || ((*list)->mtime == node->mtime
+						&& ft_strcmp((*list)->path, node->path) < 0))
+				insert_recursive_node(node, &(*list)->right, options);
 			else
-	   			insert_recursive_node(node, &(*list)->left, options);
+				insert_recursive_node(node, &(*list)->left, options);
 		}
 		else
 		{
@@ -60,20 +61,22 @@ void	insert_recursive_node(s_path *node, s_path **list, int options)
 	}
 }
 
-void    append_recursive_tree(char *path, s_path **list, int options)
+void	append_recursive_tree(char *path, s_path **list, int options)
 {
-	s_path	*node;
+	s_path		*node;
+	struct stat	*stat;
 
-	struct stat *stat;
 	if (ft_strcmp(path, ".") && ft_strcmp(path, ".."))
-	{	
-		node = malloc(sizeof(s_path));
-		node->path = ft_strdup(path); 
+	{
+		if (!(node = malloc(sizeof(s_path))))
+			return (NULL);
+		node->path = ft_strdup(path);
 		node->left = NULL;
 		node->right = NULL;
 		if (options & B_TIME)
 		{
-			stat = malloc(sizeof(struct stat));
+			if (!(stat = malloc(sizeof(struct stat))))
+				return (NULL);
 			lstat(path, stat);
 			node->mtime = stat->st_mtime;
 			free(stat);
@@ -100,5 +103,5 @@ void	handle_recursive(s_path *list, int options)
 		}
 		ft_strdel(&list->path);
 		free(list);
-	}	
+	}
 }

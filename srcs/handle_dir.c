@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/17 19:48:14 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 04:55:02 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 12:52:22 by ldaveau     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,10 +23,11 @@ void	get_total(s_file *file, int *total)
 	}
 }
 
-s_file	*run_through_dir(int options, DIR *directorie, char *path, s_path **list)
+s_file	*run_through_dir(int options, DIR *directorie, char *path,
+		s_path **list)
 {
 	s_file	*files;
-	s_file	file;	
+	s_file	file;
 	char	*entire_path;
 
 	files = NULL;
@@ -34,7 +35,8 @@ s_file	*run_through_dir(int options, DIR *directorie, char *path, s_path **list)
 	while ((file.info = readdir(directorie)))
 	{
 		entire_path = append_path(path, file.info->d_name);
-		file.stat = malloc(sizeof(struct stat));
+		if (!(file.stat = malloc(sizeof(struct stat))))
+			return (NULL);
 		lstat(entire_path, file.stat);
 		if (file.info->d_name[0] != '.' || (options & B_ALL))
 		{
@@ -54,8 +56,8 @@ s_file	*run_through_dir(int options, DIR *directorie, char *path, s_path **list)
 void	list_dir(int options, DIR *directorie, char *path)
 {
 	s_file	*files;
-	s_path *list;
-	int total;
+	s_path	*list;
+	int		total;
 
 	total = 0;
 	list = NULL;

@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/20 02:49:35 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 07:10:17 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 12:24:10 by ldaveau     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,7 +15,7 @@
 
 void	handle_path(char *path, int options)
 {
-	DIR *directorie;
+	DIR			*directorie;
 
 	if ((directorie = opendir(path)) == NULL)
 	{
@@ -42,8 +42,8 @@ void	handle_paths(char **paths, int options)
 
 void	handle_args(char **paths, int options)
 {
-	int i;
-	DIR	*directorie;
+	int			i;
+	DIR			*directorie;
 	struct stat info;
 
 	i = 0;
