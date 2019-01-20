@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/19 02:08:22 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 17:21:05 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 20:02:52 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,6 +37,20 @@ void	print_rights(mode_t mode)
 	ft_putstr(s);
 }
 
+void	display_middle(s_file file)
+{
+	ft_putchar('\t');
+	if (file.minor || file.major)
+	{
+		ft_putnbr(file.major);
+		ft_putstr(",\t");
+		ft_putnbr(file.minor);
+	}
+	else
+		ft_putnbr(file.size);
+	ft_putchar('\t');
+}
+
 void	l_display(s_file *file)
 {
 	struct group	*grp;
@@ -59,9 +73,13 @@ void	l_display(s_file *file)
 		ft_putstr(grp->gr_name);
 	else
 		ft_putnbr(file->gid);
-	ft_putchar('\t');
-	ft_putnbr(file->size);
-	ft_putchar('\t');
+//	ft_putchar('\t');
+//	ft_putnbr(file->size);
+//	ft_putchar('\t');
+
+	display_middle(*file);
+
+
 	write(1, ctime(&file->mtime) + 4, 12);
 	ft_putchar('\t');
 	ft_putstr(file->name);

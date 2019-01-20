@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/18 23:43:45 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 17:13:23 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 19:56:32 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,6 +40,8 @@ typedef struct		t_file
 	char			name[256];
 	char			symlink[1024];
 	time_t			mtime;
+	unsigned int	major;
+	unsigned int	minor;
 	blkcnt_t		blocks;
 	nlink_t			links;
 	mode_t			mode;

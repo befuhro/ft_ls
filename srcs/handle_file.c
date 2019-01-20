@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/19 02:12:41 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 17:10:58 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 20:02:54 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,6 +47,11 @@ s_file	*generate_file(s_file file, char *path)
 	node->right = NULL;
 	node->info = file.info;
 	node->stat = file.stat;
+	if (S_ISCHR(file.stat->st_mode) || S_ISBLK(file.stat->st_mode))
+	{
+		node->major = major(file.stat->st_rdev);
+		node->minor = minor(file.stat->st_rdev);
+	}
 	node->mtime = file.stat->st_mtime;
 	node->mode = file.stat->st_mode;
 	node->uid = file.stat->st_uid;
