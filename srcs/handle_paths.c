@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/20 02:49:35 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 22:54:51 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 23:17:30 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -56,7 +56,7 @@ void	throw_error_path(char **paths, int length_array)
 		}
 		if ((directorie = opendir(paths[i])) == NULL)
 		{
-			if (errno != ENOTDIR)
+			if (errno != ENOTDIR && errno != ENOENT)
 				perror(paths[i]);
 		}
 		else
