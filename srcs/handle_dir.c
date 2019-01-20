@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/17 19:48:14 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 12:52:22 by ldaveau     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 17:20:56 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -71,9 +71,12 @@ void	list_dir(int options, DIR *directorie, char *path)
 	if (options & B_LIST)
 	{
 		get_total(files, &total);
-		ft_putstr("total ");
-		ft_putnbr(total);
-		ft_putchar('\n');
+		if (total)
+		{
+			ft_putstr("total ");
+			ft_putnbr(total);
+			ft_putchar('\n');
+		}
 	}
 	print(files, options);
 	dealloc_tree(files);

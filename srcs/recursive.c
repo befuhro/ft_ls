@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/18 23:25:50 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 12:47:09 by ldaveau     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 15:28:45 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -69,14 +69,14 @@ void	append_recursive_tree(char *path, s_path **list, int options)
 	if (ft_strcmp(path, ".") && ft_strcmp(path, ".."))
 	{
 		if (!(node = malloc(sizeof(s_path))))
-			return (NULL);
+			return ;
 		node->path = ft_strdup(path);
 		node->left = NULL;
 		node->right = NULL;
 		if (options & B_TIME)
 		{
 			if (!(stat = malloc(sizeof(struct stat))))
-				return (NULL);
+				return ;
 			lstat(path, stat);
 			node->mtime = stat->st_mtime;
 			free(stat);

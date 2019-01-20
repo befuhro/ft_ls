@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/19 02:08:22 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 12:33:22 by ldaveau     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 17:21:05 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,9 +15,9 @@
 
 void	print_rights(mode_t mode)
 {
-	char s[12];
+	char s[11];
 
-	ft_bzero(s, 12);
+	ft_bzero(s, 11);
 	s[0] = S_ISDIR(mode) ? 'd' : '-';
 	s[1] = mode & S_IRUSR ? 'r' : '-';
 	s[2] = mode & S_IWUSR ? 'w' : '-';
@@ -28,6 +28,12 @@ void	print_rights(mode_t mode)
 	s[7] = mode & S_IROTH ? 'r' : '-';
 	s[8] = mode & S_IWOTH ? 'w' : '-';
 	s[9] = mode & S_IXOTH ? 'x' : '-';
+	s[3] = mode & S_ISUID && mode & S_IXUSR ? 's' : s[3];
+	s[3] = mode & S_ISUID && !(mode & S_IXUSR) ? 'S' : s[3];
+	s[6] = mode & S_ISGID && mode & S_IXGRP ? 's' : s[6];
+	s[6] = mode & S_ISGID && !(mode & S_IXGRP) ? 'S' : s[6];
+	s[9] = mode & S_ISVTX && mode & S_IXOTH ? 't' : s[9];
+	s[9] = mode & S_ISVTX && !(mode & S_IXOTH) ? 'T' : s[9];
 	ft_putstr(s);
 }
 

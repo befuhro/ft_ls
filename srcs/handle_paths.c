@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/20 02:49:35 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 12:24:10 by ldaveau     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 16:55:32 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,6 +40,23 @@ void	handle_paths(char **paths, int options)
 		handle_path(".", options);
 }
 
+void	throw_error_path(char  **paths)
+{
+	struct stat info;
+	int 		i;
+
+	i = 0;
+	while (paths[i] != NULL)
+	{
+		if (stat(paths[i], &info) == -1)
+		{
+			ft_putstr("ft_ls: ");
+			perror(paths[i]);
+		}
+		i++;
+	}
+}
+
 void	handle_args(char **paths, int options)
 {
 	int			i;
@@ -49,22 +66,15 @@ void	handle_args(char **paths, int options)
 	i = 0;
 	if (*paths != NULL)
 	{
+		throw_error_path(paths);
 		while (paths[i] != NULL)
 		{
-			if (stat(paths[i], &info) == -1)
-			{
-				ft_putstr("ft_ls: ");
-				perror(paths[i]);
-			}
-			i++;
-		}
-		i = 0;
-		while (paths[i] != NULL)
-		{
-			if ((directorie = opendir(paths[i])) != NULL)
-				list_dir(options, directorie, paths[i]);
-			else if (stat(paths[i], &info) != -1)
+			if (stat(paths[i], &info) != -1 && S_ISREG(info.st_mode))
 				handle_file(paths[i], options);
+			else if ((directorie = opendir(paths[i])) == NULL)
+				perror(paths[i]);
+			else
+				list_dir(options, directorie, paths[i]);
 			i++;
 		}
 		free(paths);

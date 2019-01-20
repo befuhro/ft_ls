@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/19 02:12:41 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 15:07:35 by ldaveau     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 17:10:58 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -74,9 +74,9 @@ void	handle_file(char *path, int options)
 	s_file *ptr;
 
 	if (!(file.info = malloc(sizeof(struct dirent))))
-		return (NULL);
+		return ;
 	if (!(file.stat = malloc(sizeof(struct stat))))
-		return (NULL);
+		return ;
 	lstat(path, file.stat);
 	ft_strcpy(file.info->d_name, path);
 	ptr = generate_file(file, path);

@@ -6,13 +6,12 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/17 19:48:11 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 14:49:15 by ldaveau     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 17:16:35 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-#include <errno.h>
 
 void	create_options_byte(char *options, int *byte)
 {
@@ -24,8 +23,23 @@ void	create_options_byte(char *options, int *byte)
 		*byte = (ft_strchr(options, 'r')) ? *byte + B_REV : *byte;
 	if (!(*byte & B_ALL))
 		*byte = (ft_strchr(options, 'a')) ? *byte + B_ALL : *byte;
-	if (!(*byte & B_TIME))
+	if (!(*byte & B_LIST))
 		*byte = (ft_strchr(options, 'l')) ? *byte + B_LIST : *byte;
+}
+
+int		is_right(char *av)
+{
+	int i;
+
+	i = 1;
+	while (av[i] != '\0')
+	{
+		if (av[i] != 't' && av[i] != 'r' && av[i] != 'l' &&
+				av[i] != 'R' && av[i] != 'a')
+			return (-1);
+		i++;
+	}
+	return (0);
 }
 
 int		index_for_path(int ac, char **av, int *options)
@@ -38,8 +52,9 @@ int		index_for_path(int ac, char **av, int *options)
 	{
 		if (av[i][0] == '-')
 		{
-			if (av[i][1] != 't' && av[i][1] != 'l' && av[i][1] != 'a' &&
-					av[i][1] != 'r' && av[i][1] != 'R')
+			if (!(av[i][1]))
+				return (-1);
+			if (is_right(av[i]) == -1)
 				return (-1);
 			if (lstat(av[i], &buf) == -1)
 				create_options_byte(av[i], options);
@@ -48,33 +63,6 @@ int		index_for_path(int ac, char **av, int *options)
 			return (i - 1);
 	}
 	return (i - 1);
-}
-
-char	**sort_paths(int size, char **args, int options)
-{
-	int		i;
-	char	*tmp;
-	char	**paths;
-
-	i = -1;
-	if (!(paths = malloc(sizeof(char*) * size + 1)))
-		return (NULL);
-	while (i++ < size - 1)
-		paths[i] = args[i];
-	i = -1;
-	while (i++ < size - 2)
-	{
-		if ((ft_strcmp(paths[i], paths[i + 1]) > 0 && !(options & B_REV)) ||
-				(ft_strcmp(paths[i], paths[i + 1]) < 0 && options & B_REV))
-		{
-			tmp = paths[i];
-			paths[i] = paths[i + 1];
-			paths[i + 1] = tmp;
-			i = -1;
-		}
-	}
-	paths[i + 1] = NULL;
-	return (paths);
 }
 
 int		main(int ac, char **av)
