@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/20 02:49:35 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 19:45:19 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 20:09:34 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,13 +40,13 @@ void	handle_paths(char **paths, int options)
 		handle_path(".", options);
 }
 
-void	throw_error_path(char  **paths)
+void	throw_error_path(char  **paths, int length_array)
 {
 	struct stat info;
 	int 		i;
 
 	i = 0;
-	while (paths[i] != NULL)
+	while (i < length_array)
 	{
 		if (stat(paths[i], &info) == -1)
 		{
@@ -57,7 +57,7 @@ void	throw_error_path(char  **paths)
 	}
 }
 
-void	handle_args(char **paths, int options)
+void	handle_args(char **paths, int options, int length_array)
 {
 	int			i;
 	DIR			*directorie;
@@ -66,8 +66,8 @@ void	handle_args(char **paths, int options)
 	i = 0;
 	if (*paths != NULL)
 	{
-		throw_error_path(paths);
-		while (paths[i] != NULL)
+		throw_error_path(paths, length_array);
+		while (i < length_array)
 		{
 			if (stat(paths[i], &info) != -1 && (S_ISREG(info.st_mode) == 1))
 				handle_file(paths[i], options);

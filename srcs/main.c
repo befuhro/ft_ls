@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/17 19:48:11 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 19:53:58 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 20:09:36 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -77,11 +77,11 @@ int		main(int ac, char **av)
 	if (ac - index > 2)
 		options = options + B_MULTI;
 	if (ac == index + 1)
-		handle_args(av + index + 1, options);
+		handle_args(av + index + 1, options, 0);
 	else
 	{
 		paths = sort_paths(ac - index - 1, av + index + 1, options);
-		handle_args(paths, options);
+		handle_args(paths, options, ac - index - 1);
 	}
 	return (0);
 }
