@@ -119,25 +119,19 @@ void	parser(char **av, int ac)
 int		index_for_path(char **av, int ac)
 {
 	int i;
-	
 	int options;
-	//int *options;
-	int j;
 	struct stat buf;
 
 	i = 0;
-	j = 0;
+	options = 0;
 	while (*av[i++] && ac > i)
 	{
-		if (av[i][0] == '-' && (lstat(av[i], &buf) == -1))
+		if (av[i][0] == '-')
 		{
-			//options[j] = stock_option(av[i]);
-			create_options_byte(av[i], &options);
-	//		j++;
-		//	printf("%d\n",i);
+			if (lstat(av[i], &buf) == -1)
+				create_options_byte(av[i], &options);
 		}
 	}
-	printf("%d\n",options);
 	return (i);
 }
 
