@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/19 02:12:41 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 03:44:15 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 04:45:02 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -68,9 +68,18 @@ void	place_file(int options, s_file file, s_file **files, char *path)
 	insert_file(options, files, link_file);
 }
 
-void    handle_file(char *file, int options)
+void    handle_file(char *path, int options)
 {
-	ft_putendl(file);
-	ft_putnbr(options);
-	ft_putchar('\n');
+	s_file file;
+	s_file *ptr;
+
+	file.info = malloc(sizeof(struct dirent));
+	file.stat = malloc(sizeof(struct stat));
+	lstat(path, file.stat);
+	ft_strcpy(file.info->d_name, path);
+	ptr = generate_file(file, path);
+	print(ptr, options);
+	free(file.info);
+	free(file.stat);
+	free(ptr);
 }

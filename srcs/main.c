@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/17 19:48:11 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 03:42:47 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 04:51:50 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -50,10 +50,12 @@ int		index_for_path(int ac, char **av, int *options)
 int		main(int ac, char **av)
 {
 	int		options;
-	int 	index_path;
+	int 	index;
 
 	options = 0;
-	index_path = index_for_path(ac, av, &options);
-	handle_args(av + index_path + 1, options);
+	index = index_for_path(ac, av, &options);
+	if (ac - index > 2)
+		options = options + B_MULTI;
+	handle_args(av + index + 1, options);
 	return (0);
 }

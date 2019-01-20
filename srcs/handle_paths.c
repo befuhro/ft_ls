@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/20 02:49:35 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 03:55:46 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 04:43:11 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -64,6 +64,36 @@ void	handle_args(char **paths, int options)
 				list_dir(options, directorie, paths[i - 1]);
 			else if (stat(paths[i - 1], &info) != -1)
 				handle_file(paths[i - 1], options);
+		}
+	}
+	else
+		handle_path(".", options);
+}
+
+void	handle_args_rev(char **paths, int options, int begin, int end)
+{
+	int i;
+	DIR	*directorie;
+	struct stat info;
+
+	i = begin;
+	if (*paths != NULL)
+	{
+		while (i-- >= end)
+		{
+			if (stat(paths[i + 1], &info) == -1)
+			{
+				ft_putstr("ft_ls: ");
+				perror(paths[i + 1]);
+			}
+		}
+		i = begin;
+		while (i-- >= end)
+		{
+			if ((directorie = opendir(paths[i + 1])) != NULL)
+				list_dir(options, directorie, paths[i + 1]);
+			else if (stat(paths[i + 1], &info) != -1)
+				handle_file(paths[i + 1], options);
 		}
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/17 19:48:14 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 03:43:26 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 04:48:48 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -61,7 +61,7 @@ void	list_dir(int options, DIR *directorie, char *path)
 	list = NULL;
 	files = run_through_dir(options, directorie, path, &list);
 	ft_putchar('\n');
-	if (options & B_REC || options & B_LIST)
+	if (options & B_REC || options & B_MULTI)
 	{
 		ft_putstr(path);
 		ft_putstr(":\n");

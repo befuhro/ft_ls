@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/18 23:43:45 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 03:55:19 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 04:50:15 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,6 +27,7 @@
 #define B_REV	4
 #define B_ALL	8
 #define B_LIST	16
+#define B_MULTI	32
 
 typedef struct		t_command
 {
@@ -60,6 +61,7 @@ typedef	struct		t_path
 
 }					s_path;
 
+void    handle_args_rev(char **args, int options, int begin, int end);
 void	handle_file(char *file, int options);
 void 	list_dir(int options, DIR *repository, char *path);
 void    append_recursive_tree(char *path, s_path **list, int options);
