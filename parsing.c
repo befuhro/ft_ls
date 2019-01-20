@@ -44,7 +44,6 @@ void    create_options_byte(char *options, int *byte)
           *byte = (ft_strchr(options, 'a')) ? *byte + B_ALL : *byte;
       if (!(*byte & B_TIME))
           *byte = (ft_strchr(options, 'l')) ? *byte + B_LIST : *byte;
-		printf("%i\n",*byte);
 }
 
 /*
