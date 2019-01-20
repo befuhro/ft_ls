@@ -6,11 +6,10 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/16 13:31:27 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/16 13:31:28 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 21:47:59 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
-
 
 void	*ft_memccpy(void *dest, const void *src, int c, size_t n)
 {

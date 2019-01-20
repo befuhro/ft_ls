@@ -6,11 +6,10 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/16 13:29:30 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/16 13:29:31 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 21:47:58 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
-
 
 void	ft_lstadd_at(t_list *list, t_list *new, unsigned int index)
 {

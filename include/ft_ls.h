@@ -6,28 +6,28 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/18 23:43:45 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 20:08:50 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 21:54:59 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #ifndef FT_LS_H
-#define FT_LS_H
-#include "../libft/include/libft.h"
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <stdio.h>
-#include <dirent.h>
-#include <pwd.h>
-#include <grp.h>
-#include <time.h>
+# define FT_LS_H
+# include "../libft/include/libft.h"
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <stdio.h>
+# include <dirent.h>
+# include <pwd.h>
+# include <grp.h>
+# include <time.h>
 
-#define B_TIME	1
-#define B_REC	2
-#define B_REV	4
-#define B_ALL	8
-#define B_LIST	16
-#define B_MULTI	32
+# define B_TIME	1
+# define B_REC	2
+# define B_REV	4
+# define B_ALL	8
+# define B_LIST	16
+# define B_MULTI	32
 
 typedef struct		t_command
 {

@@ -6,11 +6,10 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/16 13:40:59 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/16 13:40:59 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 21:48:05 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
-
 
 char	*ft_strsub(char const *s, unsigned int start, size_t len)
 {

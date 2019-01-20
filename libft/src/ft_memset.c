@@ -6,12 +6,10 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/16 13:32:39 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/16 13:32:40 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 21:48:55 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
-
-#include <stdlib.h>
 
 void	*ft_memset(void *b, int c, size_t len)
 {

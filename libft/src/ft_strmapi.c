@@ -6,11 +6,10 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/16 13:39:49 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/16 13:39:50 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 21:48:04 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
-
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {

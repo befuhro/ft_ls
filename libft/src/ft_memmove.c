@@ -6,11 +6,10 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/16 13:32:29 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/16 13:32:30 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 21:48:00 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
-
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {

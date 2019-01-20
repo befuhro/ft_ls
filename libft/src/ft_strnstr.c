@@ -6,11 +6,10 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/16 13:41:08 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/16 13:41:09 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 21:48:04 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
-
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {

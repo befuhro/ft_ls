@@ -6,12 +6,10 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/01/16 13:32:03 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2018/01/16 13:32:05 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 21:48:43 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
-
-#include <stdlib.h>
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
