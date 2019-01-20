@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/17 19:48:14 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 22:23:00 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 22:38:51 by ldaveau     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -57,6 +57,7 @@ void	display_total(t_file file)
 {
 	int total;
 
+	total = 0;
 	get_total(&file, &total);
 	if (total)
 	{
