@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/20 02:49:35 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 16:55:32 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 19:23:26 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -71,9 +71,7 @@ void	handle_args(char **paths, int options)
 		{
 			if (stat(paths[i], &info) != -1 && S_ISREG(info.st_mode))
 				handle_file(paths[i], options);
-			else if ((directorie = opendir(paths[i])) == NULL)
-				perror(paths[i]);
-			else
+			else if ((directorie = opendir(paths[i])) != NULL)
 				list_dir(options, directorie, paths[i]);
 			i++;
 		}

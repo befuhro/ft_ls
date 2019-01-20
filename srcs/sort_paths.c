@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/20 17:10:50 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 19:07:52 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 19:27:57 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,7 +29,7 @@ int		check_for_swap(char *file1, char *file2, int options)
 	{
 		lstat(file1, &info_file1);
 		lstat(file2, &info_file2);
-		if (!(options & B_REV) && info_file1.st_mtime < info_file2.st_mtime)
+		if (!(options & B_REV) && info_file1.st_mtime > info_file2.st_mtime)
 			return (1);
 		if (!(options & B_REV) && info_file1.st_mtime == info_file2.st_mtime &&
 				ft_strcmp(file1, file2) > 0)
