@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/17 19:48:11 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 20:09:36 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 20:34:11 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,7 +36,11 @@ int		is_right(char *av)
 	{
 		if (av[i] != 't' && av[i] != 'r' && av[i] != 'l' &&
 				av[i] != 'R' && av[i] != 'a')
+		{
+			ft_putstr("ls: illegal option --\n");
+			ft_putstr("usage: ls [Ralrt] [file...]\n");
 			return (-1);
+		}
 		i++;
 	}
 	return (0);
@@ -55,7 +59,7 @@ int		index_for_path(int ac, char **av, int *options)
 			if (!(av[i][1]))
 				return (-1);
 			if (is_right(av[i]) == -1)
-				return (-1);
+				return (-2);
 			if (lstat(av[i], &buf) == -1)
 				create_options_byte(av[i], options);
 		}
@@ -74,6 +78,8 @@ int		main(int ac, char **av)
 	paths = NULL;
 	options = 0;
 	index = index_for_path(ac, av, &options);
+	if (index == -2)
+		return (1);
 	if (ac - index > 2)
 		options = options + B_MULTI;
 	if (ac == index + 1)
