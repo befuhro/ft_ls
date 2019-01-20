@@ -138,6 +138,7 @@ int		index_for_path(char **av, int ac)
 		//	printf("%d\n",i);
 		}
 	}
+	printf("%d\n",options);
 	return (i);
 }
 
