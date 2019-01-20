@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/20 02:49:35 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 21:41:40 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 22:15:48 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -53,11 +53,8 @@ void	throw_error_path(char **paths, int length_array)
 			ft_putstr("ft_ls: ");
 			perror(paths[i]);
 		}
-		if (opendir(paths[i]) == NULL)
-		{
-			ft_putstr("ft_ls: ");
+		if (opendir(paths[i]) == NULL && errno != ENOTDIR)
 			perror(paths[i]);
-		}
 		i++;
 	}
 }
