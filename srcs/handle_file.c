@@ -6,14 +6,14 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/19 02:12:41 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 20:02:54 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 22:18:49 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	insert_file(int options, s_file **files, s_file *file)
+void	insert_file(int options, t_file **files, t_file *file)
 {
 	if (*files == NULL)
 		*files = file;
@@ -37,11 +37,11 @@ void	insert_file(int options, s_file **files, s_file *file)
 	}
 }
 
-s_file	*generate_file(s_file file, char *path)
+t_file	*generate_file(t_file file, char *path)
 {
-	s_file *node;
+	t_file *node;
 
-	if (!(node = malloc(sizeof(s_file))))
+	if (!(node = malloc(sizeof(t_file))))
 		return (NULL);
 	node->left = NULL;
 	node->right = NULL;
@@ -65,9 +65,9 @@ s_file	*generate_file(s_file file, char *path)
 	return (node);
 }
 
-void	place_file(int options, s_file file, s_file **files, char *path)
+void	place_file(int options, t_file file, t_file **files, char *path)
 {
-	s_file *link_file;
+	t_file *link_file;
 
 	link_file = generate_file(file, path);
 	insert_file(options, files, link_file);
@@ -75,8 +75,8 @@ void	place_file(int options, s_file file, s_file **files, char *path)
 
 void	handle_file(char *path, int options)
 {
-	s_file file;
-	s_file *ptr;
+	t_file file;
+	t_file *ptr;
 
 	if (!(file.info = malloc(sizeof(struct dirent))))
 		return ;

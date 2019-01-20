@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/18 23:25:50 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 15:28:45 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 22:19:27 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,7 +37,7 @@ char	*append_path(char *s1, char *s2)
 	return (s);
 }
 
-void	insert_recursive_node(s_path *node, s_path **list, int options)
+void	insert_recursive_node(t_path *node, t_path **list, int options)
 {
 	if (*list == NULL)
 		*list = node;
@@ -61,14 +61,14 @@ void	insert_recursive_node(s_path *node, s_path **list, int options)
 	}
 }
 
-void	append_recursive_tree(char *path, s_path **list, int options)
+void	append_recursive_tree(char *path, t_path **list, int options)
 {
-	s_path		*node;
+	t_path		*node;
 	struct stat	*stat;
 
 	if (ft_strcmp(path, ".") && ft_strcmp(path, ".."))
 	{
-		if (!(node = malloc(sizeof(s_path))))
+		if (!(node = malloc(sizeof(t_path))))
 			return ;
 		node->path = ft_strdup(path);
 		node->left = NULL;
@@ -85,7 +85,7 @@ void	append_recursive_tree(char *path, s_path **list, int options)
 	}
 }
 
-void	handle_recursive(s_path *list, int options)
+void	handle_recursive(t_path *list, int options)
 {
 	if (list != NULL)
 	{

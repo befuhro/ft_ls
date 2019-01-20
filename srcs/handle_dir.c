@@ -6,14 +6,14 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/17 19:48:14 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 21:08:03 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 22:23:00 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	get_total(s_file *file, int *total)
+void	get_total(t_file *file, int *total)
 {
 	if (file != NULL)
 	{
@@ -23,11 +23,11 @@ void	get_total(s_file *file, int *total)
 	}
 }
 
-s_file	*run_through_dir(int options, DIR *directorie, char *path,
-		s_path **list)
+t_file	*run_through_dir(int options, DIR *directorie, char *path,
+		t_path **list)
 {
-	s_file	*files;
-	s_file	file;
+	t_file	*files;
+	t_file	file;
 	char	*entire_path;
 
 	files = NULL;
@@ -53,7 +53,7 @@ s_file	*run_through_dir(int options, DIR *directorie, char *path,
 	return (files);
 }
 
-void	display_total(s_file file)
+void	display_total(t_file file)
 {
 	int total;
 
@@ -68,8 +68,8 @@ void	display_total(s_file file)
 
 void	list_dir(int options, DIR *directorie, char *path)
 {
-	s_file	*files;
-	s_path	*list;
+	t_file	*files;
+	t_path	*list;
 
 	list = NULL;
 	files = run_through_dir(options, directorie, path, &list);

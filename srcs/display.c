@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/19 02:08:22 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 21:11:49 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 22:18:19 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -37,7 +37,7 @@ void	print_rights(mode_t mode)
 	ft_putstr(s);
 }
 
-void	display_end(s_file file)
+void	display_end(t_file file)
 {
 	ft_putchar('\t');
 	if (file.minor || file.major)
@@ -60,7 +60,7 @@ void	display_end(s_file file)
 	ft_putchar('\n');
 }
 
-void	l_display(s_file *file)
+void	l_display(t_file *file)
 {
 	struct group	*grp;
 	struct passwd	*pwd;
@@ -85,7 +85,7 @@ void	l_display(s_file *file)
 	display_end(*file);
 }
 
-void	print(s_file *files, int options)
+void	print(t_file *files, int options)
 {
 	if (files != NULL)
 	{
