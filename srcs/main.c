@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/17 19:48:11 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 04:51:50 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 07:10:15 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,15 +47,49 @@ int		index_for_path(int ac, char **av, int *options)
 	return (i - 1);
 }
 
+char	**sort_paths(int size, char **args, int options)
+{
+	int		i;
+	char	*tmp;
+	char	**paths;
+
+	i = -1;
+	paths = malloc(sizeof(char*) * size + 1);
+	while (i++ < size - 1)
+		paths[i] = args[i];
+	i = -1;
+	while (i++ < size - 2)
+	{
+		if ((ft_strcmp(paths[i], paths[i + 1]) > 0  && !(options & B_REV)) ||
+			(ft_strcmp(paths[i], paths[i + 1]) < 0  && options & B_REV))
+		{
+			tmp = paths[i];
+			paths[i] = paths[i + 1];
+			paths[i + 1] = tmp;
+			i = - 1;
+		}
+	}
+	paths[i + 1] = NULL;
+	return (paths);
+}
+
 int		main(int ac, char **av)
 {
 	int		options;
 	int 	index;
+	char	**paths;
 
+	paths = NULL;
 	options = 0;
 	index = index_for_path(ac, av, &options);
 	if (ac - index > 2)
 		options = options + B_MULTI;
-	handle_args(av + index + 1, options);
+	if (ac == index + 1)
+		handle_args(av + index + 1, options);
+	else
+	{
+		paths = sort_paths(ac - index - 1, av + index + 1, options);
+		handle_args(paths, options);
+	}
 	return (0);
 }
