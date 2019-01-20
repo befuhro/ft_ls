@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/20 17:10:50 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 17:30:40 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 19:07:52 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -65,5 +65,6 @@ char	**sort_paths(int size, char **args, int options)
 			i = -1;
 		}
 	}
+	paths[i + 1] = NULL;
 	return (paths);
 }
