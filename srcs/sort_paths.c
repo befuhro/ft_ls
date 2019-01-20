@@ -6,7 +6,7 @@
 /*   By: befuhro <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/20 17:10:50 by befuhro      #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/20 22:54:50 by befuhro     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/20 23:20:22 by befuhro     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -70,7 +70,7 @@ char	**sort_paths(int size, char **args, int options)
 	while (i++ < size - 1)
 		paths[i] = args[i];
 	i = -1;
-	while (i++ < size - 3)
+	while (i++ < size - 2)
 	{
 		if ((!(options & B_TIME) &&
 			check_for_swap(paths[i], paths[i + 1], options)) ||
